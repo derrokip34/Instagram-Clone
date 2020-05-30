@@ -6,13 +6,15 @@ class Image(models.Model):
     image = models.ImageField(upload_to='media/')
     image_name = models.CharField(max_length=60)
     image_caption = models.CharField(max_length=60)
+    profile = models.ForeignKey('UserProfile',on_delete=models.CASCADE)
     likes = models.IntegerField(default=0)
 
 class Comments(models.Model):
     image = models.ForeignKey('Image',on_delete=models.CASCADE)
     comment = models.CharField(max_length=150)
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
 
 class UserProfile(models.Model):
     profile_pic = models.ImageField(upload_to='media/')
     bio = models.CharField(max_length=100,default="I'm new to Instagram")
-    user = models.OneToOneField(User,on_delete=models.CASCADE)
+    user = models.OneToOneField(User,on_delete=models.CASCADE,primary_key=True)
