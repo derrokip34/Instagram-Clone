@@ -34,7 +34,7 @@ class Comments(models.Model):
         self.save()
 
 class Profile(models.Model):
-    profile_pic = models.ImageField(upload_to='profile/')
+    profile_pic = models.ImageField(upload_to='profile/',default='anonymous.png')
     bio = models.CharField(max_length=100,default="I'm new to Instagram")
     user = models.OneToOneField(User,on_delete=models.CASCADE,primary_key=True)
 
