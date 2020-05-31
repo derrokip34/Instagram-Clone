@@ -1,5 +1,5 @@
 from django import forms
-from .models import UserProfile,Image,Comments
+from .models import Profile,Image,Comments
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
@@ -11,7 +11,7 @@ class SignupForm(UserCreationForm):
 
 class UpdateProfile(forms.ModelForm):
     class Meta:
-        model = UserProfile
+        model = Profile
         exclude = ['user']
 
 class PostImage(forms.ModelForm):

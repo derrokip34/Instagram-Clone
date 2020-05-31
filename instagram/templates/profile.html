@@ -7,11 +7,20 @@
     <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-4">
-            <img class="rounded-circle" alt="pic" src="https://raw.githubusercontent.com/Kibet1816/Instagram/master/media/images/anonymous.png" width="150px" height="150px">
-        </div><div class="col-md-4">
-            <h3>{{user.username}}</h3>
-            <h6>6 posts   152 followers   320 following</h6><br>
-            <h6>GGMU</h6>
+            <img class="rounded-circle" alt="pic" src="{{user.profile.profile_pic.url}}" width="150px" height="150px">
+        </div>
+        <div class="col-md-1">
+            <h3>{{user.username}}</h3><br>
+            <h5>posts</h5>
+        </div>
+        <div class="col-md-2">
+            <button>Edit Profile</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6"></div>
+        <div class="col-md-4">
+            <h6>{{user.profile.bio}}</h6>
         </div>
     </div>
     <hr>

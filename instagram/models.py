@@ -3,11 +3,14 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class Image(models.Model):
-    image = models.ImageField(upload_to='media/')
+    image = models.ImageField(upload_to='posts/')
     image_name = models.CharField(max_length=60)
     image_caption = models.CharField(max_length=60)
-    profile = models.ForeignKey('UserProfile',on_delete=models.CASCADE)
+    profile = models.ForeignKey('Profile',on_delete=models.CASCADE)
     likes = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.image_name
 
     def save_image(self):
         self.save()
@@ -25,15 +28,18 @@ class Image(models.Model):
 class Comments(models.Model):
     image = models.ForeignKey('Image',on_delete=models.CASCADE)
     comment = models.CharField(max_length=150)
-    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    user = models.OneToOneField(User,on_delete=models.CASCADE)
 
     def save_comment(self):
         self.save()
 
-class UserProfile(models.Model):
-    profile_pic = models.ImageField(upload_to='media/')
+class Profile(models.Model):
+    profile_pic = models.ImageField(upload_to='profile/')
     bio = models.CharField(max_length=100,default="I'm new to Instagram")
     user = models.OneToOneField(User,on_delete=models.CASCADE,primary_key=True)
+
+    def __str__(self):
+        return f'{self.user.username} Profile'
 
     def save_profile(self):
         self.save()
@@ -45,10 +51,10 @@ class UserProfile(models.Model):
 
     @classmethod
     def get_by_id(cls,id):
-        profile = UserProfile.objects.get(user=id)
+        profile = Profile.objects.get(user=id)
         return profile
 
     @classmethod
     def filter_by_id(cls,id):
-        profile = UserProfile.objects.filter(user = id).first()
+        profile = Profile.objects.filter(user = id).first()
         return profile
