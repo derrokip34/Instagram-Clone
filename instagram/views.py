@@ -13,7 +13,11 @@ def home(request):
     return render(request, 'index.html',{'title':title,'images':images})
 
 @login_required(login_url='/accounts/login')
-def profile(request,username):
-    user = User.objects.filter(username=username).first()
+def profile(request,id):
+    user = User.objects.filter(id=id).first()
+    user_profile = user.profile
+    profile = Profile.get_by_id(id)
+    images = Image.get_profile_images(id)
     
-    return render(request, 'profile.html',{'user':user})
+    title = f'@{user.username} Instagram photos'
+    return render(request, 'profile.html',{'user':user,'profile':user_profile,"images":images,'title':title})

@@ -11,7 +11,7 @@
         </div>
         <div class="col-md-1">
             <h3>{{user.username}}</h3><br>
-            <h5>posts</h5>
+            <h5>{{images|length}} posts</h5>
         </div>
         <div class="col-md-2">
             <button>Edit Profile</button>
@@ -24,6 +24,35 @@
         </div>
     </div>
     <hr>
-
+    <h5 class="text-center">POSTS</h5>
+    <div class="row" style="margin: 100px;margin-top: 0px;">
+        {% for img in images %}
+        <div class="col-md-4">
+            <a role="button" data-toggle="modal" data-target="#exampleModalLong{{img.id}}"><img style="height: 350px;width: 300px;margin-bottom: 10px;" src="{{img.image.url}}"></a>
+        </div>
+        {% endfor %}
+        {% for img in images %}
+        <div class="modal fade" id="exampleModalLong{{img.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title"><img src="{{user.profile.profile_pic.url}}" class="rounded-circle z-depth-0" alt="avatar image" height="35" width="35">  {{user.username}}</h4>
+                    </div>
+                    <div class="modal-body">
+                        <img class="text-center" src="{{img.image.url}}" style="width: 100%; height: 450px;"><br>
+                        <ul style="font-size: 30px;" class="list-inline">
+                            <li class="list-inline-item"><a><i class="far fa-heart"></i></a></li>
+                            <li class="list-inline-item"><a><i class="far fa-comment"></i></a></li>
+                        </ul>
+                        <p><strong>{{user.username}}</strong>  {{img.image_caption}}</p>
+                    </div>
+                    <div class="modal-footer">
+                        <footer class="blockquote-footer">{{img.date_posted}}</footer>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
 </div>
 {% endblock %}

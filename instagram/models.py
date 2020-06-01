@@ -8,6 +8,7 @@ class Image(models.Model):
     image_caption = models.CharField(max_length=60)
     profile = models.ForeignKey('Profile',on_delete=models.CASCADE)
     likes = models.IntegerField(default=0)
+    date_posted = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.image_name
@@ -17,7 +18,7 @@ class Image(models.Model):
 
     @classmethod
     def get_profile_images(cls,profile):
-        images = Image.objects.filter(profile__pk = profile)
+        images = Image.objects.filter(profile__pk=profile)
         return images
 
     @classmethod
@@ -28,7 +29,8 @@ class Image(models.Model):
 class Comments(models.Model):
     image = models.ForeignKey('Image',on_delete=models.CASCADE)
     comment = models.CharField(max_length=150)
-    user = models.OneToOneField(User,on_delete=models.CASCADE)
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    date_posted = models.DateTimeField(auto_now_add=True)
 
     def save_comment(self):
         self.save()
