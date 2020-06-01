@@ -2,7 +2,8 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from .models import Image,Profile
-from .forms import UpdateProfile,UpdateUser
+from .forms import UpdateProfile,UpdateUser,PostImageForm
+from django.conf.urls import url
 
 # Create your views here.
 
@@ -25,17 +26,35 @@ def profile(request,id):
 
 @login_required(login_url='/accounts/login')
 def update_profile(request):
+    current_user = request.user
     if request.method == 'POST':
         u_form = UpdateUser(request.POST,instance=request.user)
         p_form = UpdateProfile(request.POST,request.FILES,instance=request.user.profile)
         if u_form.is_valid() and p_form.is_valid():
             u_form.save()
             p_form.save()
-            return redirect('home')
+            return redirect('userProfile',id=current_user.id)
 
     else:
         u_form = UpdateUser(instance=request.user)
         p_form = UpdateProfile(instance=request.user.profile)
 
+    title = f'Update @{current_user.username} profile'
+    return render(request,'update_profile.html', {'title':title,'user_form':u_form,'profile_form':p_form})
 
-    return render(request,'update_profile.html', {'user_form':u_form,'profile_form':p_form})
+@login_required(login_url='/accounts/login')
+def post_image(request):
+    current_user = request.user
+    if request.method == 'POST':
+        img_form = PostImageForm(request.POST,request.FILES)
+        if img_form.is_valid():
+            image = img_form.save(commit=False)
+            image.owner = current_user
+            image.profile = current_user.profile
+            image.save()
+        return redirect('home')
+    else:
+        img_form = PostImageForm()
+
+    title = 'New Post'
+    return render(request, 'new_post.html',{'title':title,'img_form':img_form})
