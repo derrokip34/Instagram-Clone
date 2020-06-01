@@ -9,6 +9,7 @@ class Image(models.Model):
     profile = models.ForeignKey('Profile',on_delete=models.CASCADE)
     likes = models.IntegerField(default=0)
     date_posted = models.DateTimeField(auto_now_add=True)
+    owner = models.ForeignKey(User,on_delete=models.CASCADE)
 
     def __str__(self):
         return self.image_name

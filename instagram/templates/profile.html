@@ -11,16 +11,17 @@
         </div>
         <div class="col-md-1">
             <h3>{{user.username}}</h3><br>
-            <h5>{{images|length}} posts</h5>
+            <p>{{images|length}} posts</p>
+            <p><strong>{{user.first_name}}</strong></p>
         </div>
         <div class="col-md-2">
-            <button>Edit Profile</button>
+            <a role="button" class="btn blue-gradient btn-sm" href="{% url 'update' %}">Edit Profile</a>
         </div>
     </div>
     <div class="row">
         <div class="col-md-6"></div>
         <div class="col-md-4">
-            <h6>{{user.profile.bio}}</h6>
+            <p>{{user.profile.bio}}</p>
         </div>
     </div>
     <hr>
