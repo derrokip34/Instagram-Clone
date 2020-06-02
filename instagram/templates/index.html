@@ -5,18 +5,18 @@
     {% for img in images %}
     <div class="row">
         <div class="card" style="width: 500px;margin-bottom: 35px;"><br>
-            <div class="card-title" style="padding-left: 10px;"><img src="{{user.profile.profile_pic.url}}" class="rounded-circle z-depth-0" alt="avatar image" height="35" width="35">  {{img.owner.username}}</div>
+            <div class="card-title" style="padding-left: 10px;"><img src="{{user.profile.profile_pic.url}}" class="rounded-circle z-depth-0" alt="avatar image" height="35" width="35"><a style="color: inherit;" href="{% url 'userProfile' id=user.id %}">  {{img.owner.username}}</a></div>
             <div class="body">
                 <img src="{{img.image.url}}" class="img img-responsive" style="height: 600px;width: 500px;">
             </div>
             <div class="footer" style="padding-left: 10px;">
                 <ul style="font-size: 30px;" class="list-inline">
                     <li class="list-inline-item"><a><i class="far fa-heart"></i></a></li>
-                    <li class="list-inline-item"><a><i class="far fa-comment"></i></a></li>
+                    <li class="list-inline-item"><a style="color: inherit;" href="comment/id/{{img.id}}"><i class="far fa-comment"></i></a></li>
                 </ul>
                 <p><strong>{{img.likes}} likes</strong></p>
                 <p><strong>{{img.owner.username}}</strong> {{img.image_caption}}</p>
-                <footer class="blockquote-footer">View comments</footer><br>
+                <footer class="blockquote-footer"><a style="color: inherit;" href="comment/id/{{img.id}}">View {{img.comments.count}} comments</a></footer><br>
             </div>
         </div>
     </div>

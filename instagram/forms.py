@@ -7,6 +7,9 @@ class UpdateProfile(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['profile_pic', 'bio']
+        widgets = {
+            'bio': forms.Textarea()
+        }
 
 class UpdateUser(forms.ModelForm):
     email = forms.EmailField()
@@ -18,3 +21,11 @@ class PostImageForm(forms.ModelForm):
     class Meta:
         model = Image
         fields = ['image','image_name','image_caption']
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comments
+        fields = ['comment']
+        widgets = {
+            'comment': forms.Textarea()
+        }

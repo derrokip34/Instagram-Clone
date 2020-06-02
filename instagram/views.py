@@ -1,8 +1,8 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from .models import Image,Profile
-from .forms import UpdateProfile,UpdateUser,PostImageForm
+from .models import Image,Profile,Comments
+from .forms import UpdateProfile,UpdateUser,PostImageForm,CommentForm
 from django.conf.urls import url
 
 # Create your views here.
@@ -58,3 +58,24 @@ def post_image(request):
 
     title = 'New Post'
     return render(request, 'new_post.html',{'title':title,'img_form':img_form})
+
+@login_required(login_url='/accounts/login')
+def comment(request,image_id):
+    current_user = request.user
+    image = Image.objects.filter(id=image_id).first()
+    comment_form = CommentForm()
+    # comments = Comments.objects.all()
+    if request.method == 'POST':
+        comment_form = CommentForm(request.POST,request.FILES)
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            comment.image = image
+            comment.user = current_user
+            comment.save()
+            return redirect('home')
+        else:
+            comment_form = CommentForm()
+
+    comments = Comments.objects.filter(image_id=image_id).all()
+    title = 'Comments'
+    return render(request,'comments.html',{'comment_form':comment_form,'image':image,'user':current_user,'comments':comments})

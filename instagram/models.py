@@ -28,13 +28,19 @@ class Image(models.Model):
         return images
 
 class Comments(models.Model):
-    image = models.ForeignKey('Image',on_delete=models.CASCADE)
+    image = models.ForeignKey(Image,on_delete=models.CASCADE)
     comment = models.CharField(max_length=150)
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     date_posted = models.DateTimeField(auto_now_add=True)
 
     def save_comment(self):
         self.save()
+
+    @classmethod
+    def get_image_comments(cls,id):
+        image = Image.objects.filter(id)
+        comments = Comments.objects.filter(image.id).all()
+        return comments
 
 class Profile(models.Model):
     profile_pic = models.ImageField(upload_to='profile/',default='anonymous.png')

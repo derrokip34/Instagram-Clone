@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+
+{% block content %}
+<div class="container-fluid">
+    <br>
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-4">
+            <img src="{{image.image.url}}" class="img img-responsive" style="height: 500px;width: 500px;">
+        </div>
+        <div class="col-md-2"></div>
+        <div class="col-md-4">
+            <form method="POST">
+                {% csrf_token %}
+                {% bootstrap_form comment_form %}
+                <button type="submit" class="btn aqua-gradient btn-sm">Comment</button>
+            </form>
+            <hr>
+            <h3 class="text-center">COMMENTS ({{comments|length}})</h3>
+            {% for comment in comments %}
+            <h5><a style="color: inherit;" href="{% url 'userProfile' id=user.id %}">{{comment.user.username}}: </a></h5>
+            <p>{{comment.comment}}</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
