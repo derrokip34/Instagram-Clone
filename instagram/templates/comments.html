@@ -21,6 +21,8 @@
             {% for comment in comments %}
             <h5><a style="color: inherit;" href="{% url 'userProfile' id=user.id %}">{{comment.user.username}}: </a></h5>
             <p>{{comment.comment}}</p>
+            <footer style="font-size: 10px;">{{comment.date_posted}}</footer>
+            <hr>
             {% endfor %}
         </div>
     </div>
