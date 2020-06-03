@@ -83,4 +83,4 @@ There are no known bugs at the moment
 In case of any bugs contact me at derrickip34@gmail.com
 
 ## LICENSE & COPYRIGHT INFORMATION
-
+[MIT License](https://github.com/derrokip34/Instagram-Clone/blob/master/license.md)
