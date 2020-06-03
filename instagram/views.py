@@ -79,3 +79,11 @@ def comment(request,image_id):
     comments = Comments.objects.filter(image_id=image_id).all()
     title = 'Comments'
     return render(request,'comments.html',{'comment_form':comment_form,'image':image,'user':current_user,'comments':comments})
+
+def like_image(request,image_id):
+    image = Image.objects.filter(id=image_id).first()
+    image.likes += 1
+    image.save()
+
+    return redirect('/')
+    
