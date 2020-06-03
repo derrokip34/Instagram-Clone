@@ -42,10 +42,11 @@
                     <div class="modal-body">
                         <img class="text-center" src="{{img.image.url}}" style="width: 100%; height: 450px;"><br>
                         <ul style="font-size: 30px;" class="list-inline">
-                            <li class="list-inline-item"><a><i class="far fa-heart"></i></a></li>
-                            <li class="list-inline-item"><a><i class="far fa-comment"></i></a></li>
+                            <li class="list-inline-item"><a style="color: inherit;" href="{% url 'like' image_id=img.id %}"><i class="far fa-heart"></i></a></li>
+                            <li class="list-inline-item"><a style="color: inherit;" href="comment/image/{{img.id}}"><i class="far fa-comment"></i></a></li>
                         </ul>
                         <p><strong>{{user.username}}</strong>  {{img.image_caption}}</p>
+                        <p><strong>{{img.likes}} likes</strong></p>
                     </div>
                     <div class="modal-footer">
                         <footer class="blockquote-footer">{{img.date_posted}}</footer>
