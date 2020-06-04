@@ -17,6 +17,9 @@ class Image(models.Model):
     def save_image(self):
         self.save()
 
+    def delete_image(self):
+        self.delete()
+
     @classmethod
     def get_profile_images(cls,profile):
         images = Image.objects.filter(profile__pk=profile)
@@ -39,6 +42,9 @@ class Comments(models.Model):
     def save_comment(self):
         self.save()
 
+    def delete_comment(self):
+        self.delete()
+
     @classmethod
     def get_image_comments(cls,id):
         image = Image.objects.filter(id)
@@ -56,14 +62,17 @@ class Profile(models.Model):
     def save_profile(self):
         self.save()
 
+    def delete_profile(self):
+        self.delete()
+
     @classmethod
     def search_user(cls,search_term):
-        profiles = cls.objects.filter(user__icintains=search_term)
+        profiles = cls.objects.filter(user__icontains=search_term)
         return profiles
 
     @classmethod
     def get_by_id(cls,id):
-        profile = Profile.objects.get(user=id)
+        profile = Profile.objects.get(user_id=id)
         return profile
 
     @classmethod
