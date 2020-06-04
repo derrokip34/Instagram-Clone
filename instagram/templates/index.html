@@ -5,7 +5,7 @@
     {% for img in images %}
     <div class="row">
         <div class="card" style="width: 500px;margin-bottom: 35px;"><br>
-            <div class="card-title" style="padding-left: 10px;"><img src="{{user.profile.profile_pic.url}}" class="rounded-circle z-depth-0" alt="avatar image" height="35" width="35"><a style="color: inherit;text-decoration: none;" href="{% url 'userProfile' id=img.owner.id %}">  {{img.owner.username}}</a></div>
+            <div class="card-title" style="padding-left: 10px;"><img src="{{img.owner.profile.profile_pic.url}}" class="rounded-circle z-depth-0" alt="avatar image" height="35" width="35"><a style="color: inherit;text-decoration: none;" href="{% url 'userProfile' id=img.owner.id %}">  {{img.owner.username}}</a></div>
             <div class="body">
                 <img src="{{img.image.url}}" class="img img-responsive" style="height: 600px;width: 500px;">
             </div>
