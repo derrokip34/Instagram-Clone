@@ -9,20 +9,22 @@ from django.conf.urls import url
 
 @login_required(login_url='/accounts/login')
 def home(request):
+    current_user = request.user
     images = Image.get_all_images()
 
     title = 'Welcome to Instagram'
-    return render(request, 'index.html',{'title':title,'images':images})
+    return render(request, 'index.html',{'title':title,'images':images,'current_user':current_user})
 
 @login_required(login_url='/accounts/login')
 def profile(request,id):
+    current_user = request.user
     user = User.objects.filter(id=id).first()
     user_profile = user.profile
     profile = Profile.get_by_id(id)
     images = Image.get_profile_images(id)
     
     title = f'@{user.username} Instagram photos'
-    return render(request, 'profile.html',{'user':user,'profile':user_profile,"images":images,'title':title})
+    return render(request, 'profile.html',{'user':user,'current_user':current_user,'profile':user_profile,"images":images,'title':title})
 
 @login_required(login_url='/accounts/login')
 def update_profile(request):
@@ -40,7 +42,7 @@ def update_profile(request):
         p_form = UpdateProfile(instance=request.user.profile)
 
     title = f'Update @{current_user.username} profile'
-    return render(request,'update_profile.html', {'title':title,'user_form':u_form,'profile_form':p_form})
+    return render(request,'update_profile.html', {'title':title,'user_form':u_form,'profile_form':p_form,'current_user':current_user})
 
 @login_required(login_url='/accounts/login')
 def post_image(request):
@@ -57,7 +59,7 @@ def post_image(request):
         img_form = PostImageForm()
 
     title = 'New Post'
-    return render(request, 'new_post.html',{'title':title,'img_form':img_form})
+    return render(request, 'new_post.html',{'title':title,'img_form':img_form,'current_user':current_user})
 
 @login_required(login_url='/accounts/login')
 def comment(request,image_id):
@@ -78,7 +80,7 @@ def comment(request,image_id):
 
     comments = Comments.objects.filter(image_id=image_id).all()
     title = 'Comments'
-    return render(request,'comments.html',{'comment_form':comment_form,'image':image,'user':current_user,'comments':comments})
+    return render(request,'comments.html',{'comment_form':comment_form,'image':image,'current_user':current_user,'comments':comments})
 
 def like_image(request,image_id):
     image = Image.objects.filter(id=image_id).first()

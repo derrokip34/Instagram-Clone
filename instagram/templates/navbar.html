@@ -17,7 +17,7 @@
   
            <div id="navbar-menu-right-side">
               <ul class="list-inline nav navbar-nav action-links">
-                <li class="nav-item list-inline-item avatar"><a class="nav-link p-0" href="{% url 'userProfile' id=user.id %}"><img src="{{user.profile.profile_pic.url}}" class="rounded-circle z-depth-0" alt="avatar image" height="35" width="35"></a></li>
+                <li class="nav-item list-inline-item avatar"><a class="nav-link p-0" href="{% url 'userProfile' id=current_user.id %}"><img src="{{current_user.profile.profile_pic.url}}" class="rounded-circle z-depth-0" alt="avatar image" height="35" width="35"></a></li>
                 <li class="nav-item list-inline-item"><a style="font-size: 30px;" class="nav-link p-0" href="{% url 'home' %}" id="nav-color"><i class="fas fa-home"></i></a></li>
                 <li class="nav-item list-inline-item"><a style="font-size: 30px;" class="nav-link p-0" href="/logout" id="nav-color"><i class="fas fa-sign-out-alt"></i></a></li>
                 <li class="nav-item list-inline-item"><a style="font-size: 30px;" class="nav-link p-0" href="{% url 'newPost' %}" id="nav-color"><i class="fas fa-upload"></i></a></li>
