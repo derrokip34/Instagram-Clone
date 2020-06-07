@@ -50,7 +50,7 @@ python3.6 manage.py runserver
 
 #### Open 'http://127.0.0.1:8000/' in your browser and enjoy your app
 
-## [Photos-gallery Live site](https://ig-clone34.herokuapp.com/)
+## [IG-Clone Live site](https://ig-clone34.herokuapp.com/)
 
 ## BDD
 ### Input required
